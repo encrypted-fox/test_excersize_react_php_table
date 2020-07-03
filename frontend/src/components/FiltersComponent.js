@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 
-export default function ControlsComponent(props) {
+export default function FiltersComponent(props) {
 
     const [columnSelectionDropdownLabel, setColumnSelectionDropdownLabel] = useState('Столбец');
     const [conditionSelectionDropdownLabel, setConditionSelectionDropdownLabel] = useState('Условие');
 
     useEffect(() => {
         switch (props.filterColumn) {
-            case "data":
+            case "date":
                 setColumnSelectionDropdownLabel('Дата');
                 break;
             case "name":
@@ -27,7 +27,7 @@ export default function ControlsComponent(props) {
 
     useEffect(() => {
         switch (props.filterCondition) {
-            case "equal":
+            case "equals":
                 setConditionSelectionDropdownLabel('Равно');
                 break;
             case "contains":
@@ -59,10 +59,21 @@ export default function ControlsComponent(props) {
                                 {columnSelectionDropdownLabel}
                             </button>
                             <div className="dropdown-menu" aria-labelledby="columnSelectionDropdown">
-                                <button className="dropdown-item" onClick={() => props.onFilterColumnChange("data")}>Дата</button>
-                                <button className="dropdown-item" onClick={() => props.onFilterColumnChange("name")}>Название</button>
-                                <button className="dropdown-item" onClick={() => props.onFilterColumnChange("quantity")}>Количество</button>
-                                <button className="dropdown-item" onClick={() => props.onFilterColumnChange("distance")}>Расстояние</button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterColumnChange("date")}>Дата
+                                </button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterColumnChange("name")}>Название
+                                </button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterColumnChange("quantity")}>Количество
+                                </button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterColumnChange("distance")}>Расстояние
+                                </button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterColumnChange(undefined)}>Столбец
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -76,10 +87,21 @@ export default function ControlsComponent(props) {
                                 {conditionSelectionDropdownLabel}
                             </button>
                             <div className="dropdown-menu" aria-labelledby="conditionSelectionDropdown">
-                                <button className="dropdown-item" onClick={() => props.onFilterConditionChange("equal")}>Равно</button>
-                                <button className="dropdown-item" onClick={() => props.onFilterConditionChange("contains")}>Содержит</button>
-                                <button className="dropdown-item" onClick={() => props.onFilterConditionChange("moreThen")}>Больше чем</button>
-                                <button className="dropdown-item" onClick={() => props.onFilterConditionChange("lessThen")}>Меньше чем</button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterConditionChange("equals")}>Равно
+                                </button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterConditionChange("contains")}>Содержит
+                                </button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterConditionChange("moreThen")}>Больше чем
+                                </button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterConditionChange("lessThen")}>Меньше чем
+                                </button>
+                                <button className="dropdown-item"
+                                        onClick={() => props.onFilterConditionChange(undefined)}>Условие
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -87,8 +109,14 @@ export default function ControlsComponent(props) {
 
                     <div className="d-flex justify-content-between mt-2">
                         <p className="p-2 m-0">Параметр: </p>
-                        <input type="text" className="form-control" id="parameterInput" onChange={(e) => props.onFilterParameterChange(e.target.value)} value={props.filterParameter}/>
+                        <input type="text" className="form-control" id="parameterInput"
+                               onChange={(e) => props.onFilterParameterChange(e.target.value)}
+                               value={props.filterParameter}/>
                     </div>
+
+                    <button className="btn btn-secondary float-right mt-3"
+                            onClick={() => props.fetchDataWithParameters()}>Подтвердить
+                    </button>
                 </div>
             </div>
         </div>
