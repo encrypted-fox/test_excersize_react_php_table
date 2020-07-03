@@ -6,7 +6,7 @@ import PaginatorComponent from "./components/PaginatorComponent";
 import axios from "axios";
 
 function App() {
-
+    const host = 'http://localhost/backend/';
     const [filterColumn, setFilterColumn] = useState(undefined);
     const [filterCondition, setFilterCondition] = useState(undefined);
     const [filterParameter, setFilterParameter] = useState('');
@@ -45,7 +45,7 @@ function App() {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get(
-                'http://localhost/backend/',
+                host,
             );
 
             setTableItems(response.data);
@@ -57,7 +57,7 @@ function App() {
     const fetchDataWithParameters = () => {
         const fetchData = async () => {
             const response = await axios.post(
-                'http://localhost/backend/',
+                host,
                 JSON.stringify({sortingOrder, sortingColumn, filterColumn, filterParameter, filterCondition})
             );
             setTableItems(response.data);
